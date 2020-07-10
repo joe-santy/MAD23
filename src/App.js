@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="row">
+        <header className="App-header col-12">
+          <img src="aboardwithabag.png" alt="logo" />
+          <p><b>A Board With A Bag Consulting</b></p>
+          <p>Providing digital solutions to international businesses through open-source technology</p>
+        </header>
+        // Insert different features offered for websites: Jitsi, toast-ui, maps, etc.
+        // Schedule consultation & input info
+        // Integrate PayPal
+      </div>
+    </div>
+
     </div>
   );
 }

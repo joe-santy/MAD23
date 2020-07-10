@@ -1,4 +1,24 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# A Board With A Bag Consulting
+### Providing digital solutions to international businesses through open-source technology
+
+This is a responsive React website that can be modified to suit any client need.
+It relies on Bootstrap, Popper, and jQuery CDNs.
+
+Future integrations include Toast-UI, Jitsi, and Leaflet.
+
+
+
+
+
+
+
+
+
+
+
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
 
 ## Available Scripts
 
