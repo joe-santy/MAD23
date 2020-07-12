@@ -10,7 +10,16 @@ Future integrations include Toast-UI, Jitsi, and Leaflet.
 
 
 
-
+To Do:
+Use source js for Toast UI components, not React wrapper
+Create handlers
+Integrate MongoDB
+Style
+Add Jitsi
+Add blog creator (integrated with Toast UI Editors?  MongoDB or static pages?)
+Add consultation scheduling & input form
+Add PayPal
+Create Skate Map demo site
 
 
 
