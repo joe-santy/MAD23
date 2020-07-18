@@ -21,6 +21,15 @@ Add consultation scheduling & input form
 Add PayPal  
 Create Skate Map demo site  
 
+### Next Steps:
+Authentication function for register (users are now created) and login requests.  
+Register and Login CSS.  
+Set App.state.user  
+Update logo images  
+
+#### Auth...
+Check express session info and use that user for app render, or fetch on render?  There could potentially be a profile page, too.  The APIs must be created.  
+##### Don't send pass over http?  
 
 
 
