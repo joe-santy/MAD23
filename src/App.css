@@ -22,12 +22,12 @@ ul {
   max-height: inherit;
 }
 
-.main {
-  margin-top: 56px;
+.Home .col-12 {
+  margin-bottom: 10vh;
 }
 
-.row {
-  margin-bottom: 10vh;
+.main {
+  margin-top: 56px;
 }
 
 .tui-image-editor-header-logo {

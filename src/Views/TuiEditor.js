@@ -3,12 +3,12 @@
 
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-const TuiEditor = () => (
+const TuiEditor = (props) => (
 
   <div className="row">
     <div className="editor col-12 col-md-4">

@@ -3,7 +3,7 @@
 
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import 'tui-image-editor/dist/tui-image-editor.css';
 import ImageEditor from '@toast-ui/react-image-editor';
 
@@ -11,7 +11,7 @@ const myTheme = {
   // Theme object to extends default dark theme.
 };
 
-const TuiImageEditor = () => (
+const TuiImageEditor = (props) => (
   <div className="row d-none d-lg-block">
     <div className="image-editor col-12">
       <ImageEditor

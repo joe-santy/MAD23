@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function Tech() {
+const AbwabHeader = (props) => {
+  return (
+    <header className="App-header col-12">
+      <img src="aboardwithabag.png" alt="logo" />
+      <h1>Aboard With A Bag Consulting</h1>
+      <p><b>Providing full-stack development services for location-independent businesses.</b></p>
+    </header>);
+};
+
+const Tech = (props) => {
+
   const stack = [
     {
       name : "Linux",
@@ -59,9 +69,9 @@ function Tech() {
       <div className="container">{stackList}</div>
     </div>
   );
-}
+};
 
-function Options() {
+const Options = (props) => {
   const features = {
     "Maps" : "leaflet",
     "Audio Manipulation" : "",
@@ -86,16 +96,18 @@ function Options() {
       <div className="container">{featureList}</div>
     </div>
   );
-}
+};
 
-function TechStack() {
+const Home = (props) => {
 
   return (
-    <div className="tech-stack row">
+    <div className="Home row">
+      <AbwabHeader />
       <Tech />
       <Options />
     </div>
   );
-}
 
-export default TechStack;
+};
+
+export default Home;

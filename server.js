@@ -34,7 +34,13 @@ const port = process.env.PORT || 8080;
       const passportLocalMongoose = require('passport-local-mongoose');
 
       mongoose.connect('mongodb://localhost/Users',
-        { useNewUrlParser: true, useUnifiedTopology: true });
+        { useNewUrlParser: true, useUnifiedTopology: true },
+        function(err) {
+          if (err) {
+            console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
+          }
+        }
+      );
 
       const Schema = mongoose.Schema;
       const UserSchema = new Schema({});
@@ -49,6 +55,7 @@ const port = process.env.PORT || 8080;
           // queryParameters.active = true;
           return model.findOne(queryParameters);
         }
+
       });
       const User = mongoose.model('User', UserSchema);
 
@@ -84,20 +91,17 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 // handling user sign up
 app.post("/api/users/register/", function(req, res){
-
-  User.register({username: req.body.username}, req.body.password, function(err, user) {
-    if (err) { console.error(err); }
-
-    User.authenticate(req.body.username, req.body.password, function(err, result) {
-      if (err) { console.error(err); return; }
-
-      console.log(result);
-      res.json(result);
-    });
+  User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
+    if (err) { console.error(err); return; }
+    console.log("Registered " + req.body.username);
+    res.json({user:req.body.username});
   });
-
 });
 
 // Get user info for login
@@ -107,15 +111,9 @@ app.get('/api/users/', function(req, res) {
 });
 
 // See https://github.com/saintedlama/passport-local-mongoose
-app.post('/api/users/', function(req, res){
-    console.log("posted.");
-    User.authenticate(req.body.username, req.body.password, function(err, result) {
-      if (err) { console.error(err); return; }
-
-      console.log("authenticated?");
-      if (result) { console.log('Result: ' + result); }
-      res.json(result);
-    });
+app.post('/api/users/', passport.authenticate('local'), function(req, res){
+  console.log("Authenticated " + req.body.username);
+  res.json({user:req.body.username});
 });
 
 app.listen(port, console.log(`Server listening on port ${port}`));

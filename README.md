@@ -22,6 +22,7 @@ Add PayPal
 Create Skate Map demo site  
 
 ### Next Steps:
+Apply handlers through jQuery? or where?  Not within views.  
 Authentication function for register (users are now created) and login requests.  
 Register and Login CSS.  
 Set App.state.user  
