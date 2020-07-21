@@ -35,6 +35,9 @@ const App = (props) => {
             setUser(data.user);
             setUsername('');
             setPassword('');
+          },
+          err => {
+            alert('Could not login.\nPlease try again.');
           });
     },
     logout : (event) => {
@@ -61,6 +64,9 @@ const App = (props) => {
             setUsername('');
             setPassword('');
             setPasswordConfirm('');
+          },
+          err => {
+            alert('Could not register.\nPlease try again.');
           });
       } else {
         alert('Passwords do not match.');

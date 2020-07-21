@@ -15,6 +15,7 @@ ul {
 
 .App-header {
   text-align: center;
+  margin-bottom: 10vh;
 }
 
 .App-header img {
@@ -22,12 +23,21 @@ ul {
   max-height: inherit;
 }
 
-.Home .col-12 {
-  margin-bottom: 10vh;
+.auth-form {
+  margin-top: 25vh;
+}
+
+.Blog h1 {
+  margin-top: 20vh;
+  text-align: center;
 }
 
 .main {
   margin-top: 56px;
+}
+
+.register-form {
+  margin-top: 25vh;
 }
 
 .tui-image-editor-header-logo {

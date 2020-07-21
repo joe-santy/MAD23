@@ -4,9 +4,7 @@ import Auth from './Views/Auth.js';
 import Admin from './Views/Admin.js';
 import Register from './Views/Register.js';
 import Home from './Views/Home.js';
-import TuiCalendar from './Views/TuiCalendar.js';
-import TuiImageEditor from './Views/TuiImageEditor.js';
-import TuiEditor from './Views/TuiEditor.js';
+import Blog from './Views/Blog.js';
 
 const Views = (props) => (
 
@@ -14,15 +12,11 @@ const Views = (props) => (
         renders the first one that matches the current URL. */
     <div className="main container">
       <Switch>
-        <Route path="/editors">
-          <TuiEditor />
-          <TuiImageEditor />
-        </Route>
-        <Route path="/calendar">
-          <TuiCalendar />
-        </Route>
         <Route path="/admin">
           <Admin />
+        </Route>
+        <Route path="/blog">
+          <Blog />
         </Route>
         <Route path="/auth">
           <Auth handlers={props.handlers} setUsername={props.setUsername} setPassword={props.setPassword} />

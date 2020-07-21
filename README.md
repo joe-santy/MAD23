@@ -1,37 +1,32 @@
 
 # A Board With A Bag Consulting
-### Providing digital solutions to international businesses through open-source technology
+### Providing full-stack development services for location-independent businesses.
 
-This is a responsive React website that can be modified to suit any client need.  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It is a responsive React website that can be modified to suit any client need.  
 It relies on Bootstrap, Popper, and jQuery CDNs.  
 
-Future integrations include Toast-UI, Jitsi, and Leaflet.  
+Future integrations may include Jitsi and Leaflet.  
 
 ##### Use yarn rather than npm; otherwise a dependency error occurs
 
 
-To Do:  
-Use source js for Toast UI components, not React wrapper  
-Create handlers  
-Integrate MongoDB  
-Style  
+### To Do:  
+Create blog: post/get with DB access in server; Admin editors and blog page on front-end.  
 Add Jitsi  
-Add blog creator (integrated with Toast UI Editors?  MongoDB or static pages?)  
-Add consultation scheduling & input form  
+Style calendar  
+Add consultation scheduling & input form, admin access  
 Add PayPal  
-Create Skate Map demo site  
 
 ### Next Steps:
-Apply handlers through jQuery? or where?  Not within views.  
-Authentication function for register (users are now created) and login requests.  
-Register and Login CSS.  
-Set App.state.user  
+Improve component organization
+Improve styling  
 Update logo images  
 
 #### Auth...
-Check express session info and use that user for app render, or fetch on render?  There could potentially be a profile page, too.  The APIs must be created.  
-##### Don't send pass over http?  
+Check express session info and use that user for app render, or fetch on render?  
 
+##### https?  
 
 
 

@@ -1,88 +1,71 @@
 const express = require('express');
 const path = require('path');
-// const auth = require('./server/auth.js');
 const app = express();
 const port = process.env.PORT || 8080;
 
-      // Thanks to https://www.sitepoint.com/local-authentication-using-passport-node-js/
+// Thanks to https://www.sitepoint.com/local-authentication-using-passport-node-js/
+// See https://github.com/saintedlama/passport-local-mongoose
 
+/*  EXPRESS SETUP for server */
+const bodyParser = require('body-parser');
+const expressSession = require('express-session')({
+  secret: '0123456789',
+  resave: false,
+  saveUninitialized: false
+});
 
-      /*  EXPRESS SETUP  */
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressSession);
 
-//      app.use(express.static(__dirname));
-      const bodyParser = require('body-parser');
-      const expressSession = require('express-session')({
-        secret: '0123456789',
-        resave: false,
-        saveUninitialized: false
-      });
+/* PASSPORT SETUP for authentication */
 
-      app.use(bodyParser.json());
-      app.use(bodyParser.urlencoded({ extended: true }));
-      app.use(expressSession);
+const passport = require('passport');
 
-      /* PASSPORT SETUP */
+app.use(passport.initialize());
+app.use(passport.session());
 
-      const passport = require('passport');
+/* MONGOOSE SETUP for database access */
 
-      app.use(passport.initialize());
-      app.use(passport.session());
+const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
-      /* MONGOOSE SETUP */
+mongoose.connect('mongodb://localhost/Users',
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  function(err) {
+    if (err) {
+      console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
+    }
+  }
+);
 
-      const mongoose = require('mongoose');
-      const passportLocalMongoose = require('passport-local-mongoose');
+const Schema = mongoose.Schema;
+const UserSchema = new Schema({});
 
-      mongoose.connect('mongodb://localhost/Users',
-        { useNewUrlParser: true, useUnifiedTopology: true },
-        function(err) {
-          if (err) {
-            console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
-          }
-        }
-      );
+// In mongo:  db.user.find()
+UserSchema.plugin(passportLocalMongoose, {
+  // Set usernameUnique to false to avoid a mongodb index on the username column!
+  usernameUnique: false,
 
-      const Schema = mongoose.Schema;
-      const UserSchema = new Schema({});
+  findByUsername: function(model, queryParameters) {
+    // Add additional query parameter - example AND condition - active: true
+    // queryParameters.active = true;
+    return model.findOne(queryParameters);
+  }
 
-      // In mongo:  db.user.find()
-      UserSchema.plugin(passportLocalMongoose, {
-        // Set usernameUnique to false to avoid a mongodb index on the username column!
-        usernameUnique: false,
+});
+const User = mongoose.model('User', UserSchema);
 
-        findByUsername: function(model, queryParameters) {
-          // Add additional query parameter - example AND condition - active: true
-          // queryParameters.active = true;
-          return model.findOne(queryParameters);
-        }
+/* PASSPORT LOCAL AUTHENTICATION */
 
-      });
-      const User = mongoose.model('User', UserSchema);
+// Setup passport-local LocalStrategy with the correct options
+passport.use(User.createStrategy());
 
-      /* PASSPORT LOCAL AUTHENTICATION */
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-      // Setup passport-local LocalStrategy with the correct options
-      passport.use(User.createStrategy());
-
-      // use static serialize and deserialize of model for passport session support
-      passport.serializeUser(User.serializeUser());
-      passport.deserializeUser(User.deserializeUser());
-
-      /* REGISTER SOME USERS - Do just once, then comment out */
-
-//      Users.register({username:'aboardwithabag@gmail.com'}, 'aboardwithabag@gmail.com');
-
-/*
-  // to create user?
-  const user = new DefaultUser({username: 'user'});
-  await user.setPassword('password');
-  await user.save();
-  const { user } = await DefaultUser.authenticate()('user', 'password');
- */
-
-      /* ROUTES */
-
-
+/* ROUTES */
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -91,11 +74,22 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+// To load blog posts
+app.get('/api/blog', function(req, res) {
+  // Get blog posts
+});
+
+// To properly load urls; the router is in ./src/Views.js
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// handling user sign up
+// To add blog post
+app.post('/api/blog', function(req, res) {
+  // Add blog post
+});
+
+// Handling user sign up
 app.post("/api/users/register/", function(req, res){
   User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
     if (err) { console.error(err); return; }
@@ -104,13 +98,7 @@ app.post("/api/users/register/", function(req, res){
   });
 });
 
-// Get user info for login
-// MUST BE CHANGED TO ACCEPT POST REQUEST
-app.get('/api/users/', function(req, res) {
-  res.json({user:"Joe"});
-});
-
-// See https://github.com/saintedlama/passport-local-mongoose
+// Handling user login
 app.post('/api/users/', passport.authenticate('local'), function(req, res){
   console.log("Authenticated " + req.body.username);
   res.json({user:req.body.username});

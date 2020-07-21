@@ -13,11 +13,8 @@ const NavBar = (props) => (
           <li className="nav-item active">
             <Link to="/" className="nav-link">Home<span className="sr-only">(current)</span></Link>
           </li>
-          <li className="nav-item">
-            <Link to="/editors" className="nav-link">Editors</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/calendar" className="nav-link">Calendar</Link>
+          <li className="nav-item active">
+            <Link to="/blog" className="nav-link">Blog</Link>
           </li>
           { /* Show link to Admin if logged in, otherwise Login and Register */ }
           {props.user &&
