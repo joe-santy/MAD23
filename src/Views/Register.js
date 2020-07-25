@@ -9,6 +9,7 @@ const Register = (props) => {
           <div className="col-12 col-md-4 offset-md-4">
             <input
               className="form-control"
+              placeholder="Username"
               name="username"
               type="text"
               value={props.username}
@@ -19,6 +20,7 @@ const Register = (props) => {
           <div className="col-12 col-md-4 offset-md-4">
             <input
               className="form-control"
+              placeholder="Password"
               name="password"
               type="password"
               value={props.password}
@@ -29,6 +31,7 @@ const Register = (props) => {
           <div className="col-12 col-md-4 offset-md-4">
             <input
               className="form-control"
+              placeholder="Confirm Password"
               name="passVerify"
               type="password"
               value={props.passwordConfirm}
@@ -40,7 +43,6 @@ const Register = (props) => {
             <button
               id="register"
               className="btn"
-              to="/"
               onClick={props.handlers.register}>Register</button>
           </div>
         </div>

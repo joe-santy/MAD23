@@ -9,6 +9,7 @@ const Auth = (props) => {
           <div className="col-12 col-md-4 offset-md-4">
             <input
               className="form-control"
+              placeholder="Username"
               name="username"
               type="text"
               value={props.username}
@@ -19,6 +20,7 @@ const Auth = (props) => {
           <div className="col-12 col-md-4 offset-md-4">
             <input
               className="form-control"
+              placeholder="Password"
               name="password"
               type="password"
               value={props.password}
@@ -30,7 +32,6 @@ const Auth = (props) => {
             <button
               id="login"
               className="btn"
-              to="/"
               onClick={props.handlers.login}>Login</button>
           </div>
         </div>

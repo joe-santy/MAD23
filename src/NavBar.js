@@ -10,29 +10,37 @@ const NavBar = (props) => (
       </button>
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
+          <li className="nav-item active" data-toggle="collapse" data-target=".navbar-collapse.show">
             <Link to="/" className="nav-link">Home<span className="sr-only">(current)</span></Link>
           </li>
-          <li className="nav-item active">
+          <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
             <Link to="/blog" className="nav-link">Blog</Link>
           </li>
-          { /* Show link to Admin if logged in, otherwise Login and Register */ }
+          { /* Show link to Admin, Logout, and username if logged in, otherwise Login and Register */ }
           {props.user &&
-            (<li className="nav-item">
+            (<li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
               <Link to="/admin" className="nav-link">Admin</Link>
             </li>)}
-            {props.user &&
-              (<li className="nav-item">
-                <Link to="/" className="nav-link" onClick={props.handlers.logout}>Logout</Link>
-              </li>)}
+          {props.user &&
+            (<li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+              <Link to="/" className="nav-link" onClick={props.handlers.logout}>Logout</Link>
+            </li>)}
           {!props.user &&
-            (<li className="nav-item">
+            (<li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
               <Link to="/auth" className="nav-link">Login</Link>
             </li>)}
           {!props.user &&
-            (<li className="nav-item">
+            (<li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
               <Link to="/register" className="nav-link">Register</Link>
             </li>)}
+        </ul>
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item active" data-toggle="collapse" data-target=".navbar-collapse.show">
+            {props.user &&
+              (<li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                <Link className="nav-link">{props.user}</Link>
+              </li>)}
+          </li>
         </ul>
       </div>
     </nav>

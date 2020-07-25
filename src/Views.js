@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Route } from "react-router-dom";
+import { Redirect, Switch, Route } from "react-router-dom";
 import Auth from './Views/Auth.js';
 import Admin from './Views/Admin.js';
 import Register from './Views/Register.js';
@@ -13,16 +13,19 @@ const Views = (props) => (
     <div className="main container">
       <Switch>
         <Route path="/admin">
-          <Admin />
+          {props.user && <Admin />}
+          {!props.user && <Redirect to="/" />}
         </Route>
         <Route path="/blog">
           <Blog />
         </Route>
         <Route path="/auth">
-          <Auth handlers={props.handlers} setUsername={props.setUsername} setPassword={props.setPassword} />
+          {props.user && <Redirect to="/" />}
+          {!props.user && <Auth handlers={props.handlers} setUsername={props.setUsername} setPassword={props.setPassword} />}
         </Route>
         <Route path="/register">
-          <Register handlers={props.handlers} setUsername={props.setUsername} setPassword={props.setPassword} setPasswordConfirm={props.setPasswordConfirm} />
+          {props.user && <Redirect to="/" />}
+          {!props.user && <Register handlers={props.handlers} setUsername={props.setUsername} setPassword={props.setPassword} setPasswordConfirm={props.setPasswordConfirm} />}
         </Route>
         <Route path="/">
           <Home />

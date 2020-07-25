@@ -17,6 +17,7 @@ Add Jitsi
 Style calendar  
 Add consultation scheduling & input form, admin access  
 Add PayPal  
+collapse menu on select item  
 
 ### Next Steps:
 Improve component organization

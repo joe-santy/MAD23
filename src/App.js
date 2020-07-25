@@ -18,7 +18,7 @@ const App = (props) => {
       alert('Alert.');
     },
     login : (event) => {
-      // alert('Your username and password are: ' + '\n' + username + '\n' + password);
+      // alert('Your username and password are: ' + username + '\n' + password);
       event.preventDefault();
       const requestOptions = {
           method: 'POST',
@@ -28,16 +28,16 @@ const App = (props) => {
             password : password
           })
       };
-      fetch('/api/users/', requestOptions)
+      fetch('/api/users', requestOptions)
           .then(response => response.json())
           .then(data => {
             // console.log(data.user);
             setUser(data.user);
             setUsername('');
             setPassword('');
-          },
-          err => {
-            alert('Could not login.\nPlease try again.');
+          })
+          .catch(function() {
+            console.log("error");
           });
     },
     logout : (event) => {
@@ -64,9 +64,9 @@ const App = (props) => {
             setUsername('');
             setPassword('');
             setPasswordConfirm('');
-          },
-          err => {
-            alert('Could not register.\nPlease try again.');
+          })
+          .catch(function() {
+            console.log("error");
           });
       } else {
         alert('Passwords do not match.');
@@ -78,7 +78,7 @@ const App = (props) => {
     <div className="App">
       <Router>
         <NavBar handlers={handlers} user={user} />
-        <Views handlers={handlers} setUsername={setUsername} setPassword={setPassword} setPasswordConfirm={setPasswordConfirm} />
+        <Views handlers={handlers} user={user} setUsername={setUsername} setPassword={setPassword} setPasswordConfirm={setPasswordConfirm} />
       </Router>
     </div>
   )
