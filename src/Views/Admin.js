@@ -3,7 +3,40 @@ import React, { useState } from 'react';
 const Admin = (props) => {
 
   return (
-    <p>Admin</p>
+    <form className="input-group">
+      <div className="blog-form container">
+        <div className="Admin row">
+          <div className="stack col-12 offset-md-2 col-md-8">
+            <input
+              className="form-control"
+              placeholder="Enter blog title."
+              id="blogTitle"
+              name="blogTitle"
+              value={props.blogTitle}
+              onChange={e => props.setBlogTitle(e.target.value)} />
+          </div>
+        </div>
+        <div className="Admin row">
+          <div className="stack col-12 offset-md-2 col-md-8">
+            <textarea
+              className="form-control"
+              placeholder="Enter blog post as plain text."
+              id="blogPost"
+              name="blogPost"
+              value={props.blogPost}
+              onChange={e => props.setBlogPost(e.target.value)}></textarea>
+          </div>
+        </div>
+        <div className="Admin row">
+          <div className="stack col-12 offset-md-2 col-md-8">
+            <button
+              id="postBlog"
+              className="btn"
+              onClick={props.handlers.postBlog}>Post Blog</button>
+          </div>
+        </div>
+      </div>
+    </form>
   );
 
 }

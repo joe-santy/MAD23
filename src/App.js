@@ -12,6 +12,9 @@ const App = (props) => {
   const [password, setPassword] = useState(null);
   const [passwordConfirm, setPasswordConfirm] = useState(null);
   const [appointments, setAppointments] = useState(null);
+  const [blogPost, setBlogPost] = useState(null);
+  const [blogTitle, setBlogTitle] = useState(null);
+  const [blogPosts, setBlogPosts] = useState(null);
 
   const handlers = {
     alert : () => {
@@ -40,8 +43,50 @@ const App = (props) => {
             console.log("error");
           });
     },
+    loadBlog : () => {
+      const requestOptions = {
+        method: 'GET'
+      };
+
+      fetch('/api/blog', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          setBlogPosts(data);
+        })
+        .catch(function(err) {
+          console.log("Error retrieving blog");
+          console.log(err);
+        });
+    },
     logout : (event) => {
       setUser(null);
+    },
+    postBlog : (event) => {
+      event.preventDefault();
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title : blogTitle,
+          author : user,
+          content : blogPost
+        })
+      };
+      if (user) {
+        // alert('Your username and password are: ' + '\n' + username + '\n' + password);
+        fetch('/api/blog', requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            setBlogPost('');
+            setBlogTitle('');
+          })
+          .catch(function() {
+            console.log("Error posting blog.");
+          });
+      } else {
+        alert('Please log in.');
+      }
     },
     register : (event) => {
       event.preventDefault();
@@ -66,7 +111,7 @@ const App = (props) => {
             setPasswordConfirm('');
           })
           .catch(function() {
-            console.log("error");
+            console.log("Error registering");
           });
       } else {
         alert('Passwords do not match.');
@@ -78,7 +123,7 @@ const App = (props) => {
     <div className="App">
       <Router>
         <NavBar handlers={handlers} user={user} />
-        <Views handlers={handlers} user={user} setUsername={setUsername} setPassword={setPassword} setPasswordConfirm={setPasswordConfirm} />
+        <Views handlers={handlers} user={user} setBlogPost={setBlogPost} setBlogTitle={setBlogTitle} setUsername={setUsername} setPassword={setPassword} setPasswordConfirm={setPasswordConfirm} blogTitle={blogTitle} blogPost={blogPost} blogPosts={blogPosts} />
       </Router>
     </div>
   )

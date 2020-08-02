@@ -5,6 +5,7 @@ import Admin from './Views/Admin.js';
 import Register from './Views/Register.js';
 import Home from './Views/Home.js';
 import Blog from './Views/Blog.js';
+import BlogPage from './Views/BlogPage.js';
 
 const Views = (props) => (
 
@@ -13,11 +14,11 @@ const Views = (props) => (
     <div className="main container">
       <Switch>
         <Route path="/admin">
-          {props.user && <Admin />}
+          {props.user && <Admin handlers={props.handlers} blogTitle={props.blogTitle} blogPost={props.blogPost} setBlogPost={props.setBlogPost} setBlogTitle={props.setBlogTitle} />}
           {!props.user && <Redirect to="/" />}
         </Route>
         <Route path="/blog">
-          <Blog />
+          <Blog handlers={props.handlers} blogPosts={props.blogPosts} />
         </Route>
         <Route path="/auth">
           {props.user && <Redirect to="/" />}
@@ -27,6 +28,7 @@ const Views = (props) => (
           {props.user && <Redirect to="/" />}
           {!props.user && <Register handlers={props.handlers} setUsername={props.setUsername} setPassword={props.setPassword} setPasswordConfirm={props.setPasswordConfirm} />}
         </Route>
+        <Route path="/:id" children={<BlogPage handlers={props.handlers} blogPosts={props.blogPosts} />} />
         <Route path="/">
           <Home />
         </Route>

@@ -30,7 +30,7 @@ app.use(passport.session());
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
-mongoose.connect('mongodb://localhost/Users',
+mongoose.connect('mongodb://localhost/ABWAB',
   { useNewUrlParser: true, useUnifiedTopology: true },
   function(err) {
     if (err) {
@@ -56,6 +56,17 @@ UserSchema.plugin(passportLocalMongoose, {
 });
 const User = mongoose.model('User', UserSchema);
 
+
+const BlogSchema = new Schema({
+  url: String,
+  title : String,
+  author : String,
+  date : Date,
+  content : String
+});
+const BlogPost = mongoose.model('BlogPost', BlogSchema);
+
+
 /* PASSPORT LOCAL AUTHENTICATION */
 
 // Setup passport-local LocalStrategy with the correct options
@@ -77,6 +88,21 @@ app.get('/', function(req, res) {
 // To load blog posts
 app.get('/api/blog', function(req, res) {
   // Get blog posts
+  let blogPosts = [];
+  let getBlogPosts = BlogPost.find({})
+    .cursor()
+    .on('data', function(doc) {
+      blogPosts.push([
+        doc.url,
+        doc.title,
+        doc.author,
+        doc.date,
+        doc.content
+      ]);
+    })
+    .on('end', function() { console.log(blogPosts);  res.send(blogPosts); });
+  // console.log(blogPosts);
+  // res.send({blogPosts : blogPosts});
 });
 
 // To properly load urls; the router is in ./src/Views.js
@@ -87,6 +113,26 @@ app.get('/*', function(req, res) {
 // To add blog post
 app.post('/api/blog', function(req, res) {
   // Add blog post
+  const blogPost = new BlogPost({
+
+    // Replace space with dash, lowercase.
+    url : req.body.title.replace(/\s/g, '-').replace(/(?!-)\W/g, '').toLowerCase(),
+    title : req.body.title,
+    author : req.body.author,
+    date : new Date().toISOString().slice(0,10),
+    content : req.body.content
+  });
+  blogPost.save(function(err){
+    if (err) {
+      console.error(err);
+      return;
+    } else {
+      console.log(blogPost.url + ' saved.');
+      return;
+    }
+
+  });
+
 });
 
 // Handling user sign up

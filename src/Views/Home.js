@@ -4,7 +4,7 @@ const AbwabHeader = (props) => {
   return (
     <header className="App-header col-12">
       <img src="aboardwithabag.png" alt="logo" />
-      <h1>Aboard With A Bag Consulting</h1>
+      <h1>Aboard With A Bag</h1>
       <p><b>Providing full-stack development services for location-independent businesses.</b></p>
     </header>);
 };
@@ -63,7 +63,7 @@ const Tech = (props) => {
   };
 
   return (
-    <div className="stack col-12 col-md-6">
+    <div className="stack col-12 offset-md-2 col-md-8">
       <h2>Tech Stack</h2>
       <p>I write clean code using a modern open-source tech stack that allows rapid development and deployment.  Rest assured that if you ever change developers, they will have access to everything needed to maintain your project, incuding great documentation.  The standard tools that I use include:</p>
       <div className="container">{stackList}</div>
@@ -104,7 +104,7 @@ const Home = (props) => {
     <div className="Home row">
       <AbwabHeader />
       <Tech />
-      <Options />
+      {/* <Options /> */}
     </div>
   );
 
