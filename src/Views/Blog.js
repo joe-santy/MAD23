@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import ReactHtmlParser from 'react-html-parser';
 
 const Blog = (props) => {
 
@@ -15,10 +16,10 @@ const Blog = (props) => {
         props.blogPosts.map((post) => {
           return (
             <div className="row">
-              <h3 className="col-12 blogPostTitle"><Link to={post[0]}>{post[1]}</Link></h3>
-              <h6 className="col-12">{post[2]}</h6>
-              <h6 className="col-12">{post[3]}</h6>
-              <div className="col-12">{post[4]}</div>
+              <h3 className="col-12 offset-md-2 col-md-8 blogPostTitle"><Link to={post[0]}>{post[1]}</Link></h3>
+              {/* <h6 className="col-12 offset-md-2 col-md-8">{post[2]}</h6> */}
+              {/* <h6 className="col-12 offset-md-2 col-md-8">{post[3]}</h6> */}
+              <div className="col-12 offset-md-2 col-md-8">{ ReactHtmlParser(post[4]) }</div>
             </div>
           );
       })}

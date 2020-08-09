@@ -5,7 +5,7 @@ const AbwabHeader = (props) => {
     <header className="App-header col-12">
       <img src="aboardwithabag.png" alt="logo" />
       <h1>Aboard With A Bag</h1>
-      <p><b>Providing full-stack development services for location-independent businesses.</b></p>
+      <p><b>Full-stack development for small businesses</b></p>
     </header>);
 };
 

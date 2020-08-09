@@ -128,7 +128,7 @@ app.post('/api/blog', function(req, res) {
       return;
     } else {
       console.log(blogPost.url + ' saved.');
-      return;
+      res.send(blogPost.url + ' saved.');
     }
 
   });

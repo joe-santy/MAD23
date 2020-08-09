@@ -74,12 +74,11 @@ const App = (props) => {
         })
       };
       if (user) {
-        // alert('Your username and password are: ' + '\n' + username + '\n' + password);
         fetch('/api/blog', requestOptions)
-          .then(response => response.json())
-          .then(data => {
+          .then(() => {
             setBlogPost('');
             setBlogTitle('');
+            window.location.href = '/';
           })
           .catch(function() {
             console.log("Error posting blog.");
