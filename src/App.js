@@ -8,6 +8,7 @@ const App = (props) => {
 
   // User is who's logged in; username is for login/register field.
   const [user, setUser] = useState(null);
+  const [lang, setLang] = useState('EN');
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [passwordConfirm, setPasswordConfirm] = useState(null);
@@ -121,7 +122,7 @@ const App = (props) => {
   return (
     <div className="App">
       <Router>
-        <NavBar handlers={handlers} user={user} />
+        <NavBar handlers={handlers} user={user} lang={lang} />
         <Views handlers={handlers} user={user} setBlogPost={setBlogPost} setBlogTitle={setBlogTitle} setUsername={setUsername} setPassword={setPassword} setPasswordConfirm={setPasswordConfirm} blogTitle={blogTitle} blogPost={blogPost} blogPosts={blogPosts} />
       </Router>
     </div>

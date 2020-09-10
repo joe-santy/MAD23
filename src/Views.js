@@ -5,6 +5,7 @@ import Admin from './Views/Admin.js';
 import Register from './Views/Register.js';
 import Home from './Views/Home.js';
 import Blog from './Views/Blog.js';
+import Docs from './Views/Docs.js';
 import BlogPage from './Views/BlogPage.js';
 
 const Views = (props) => (
@@ -19,6 +20,9 @@ const Views = (props) => (
         </Route>
         <Route path="/blog">
           <Blog handlers={props.handlers} blogPosts={props.blogPosts} />
+        </Route>
+        <Route path="/docs">
+          <Docs handlers={props.handlers} />
         </Route>
         <Route path="/auth">
           {props.user && <Redirect to="/" />}

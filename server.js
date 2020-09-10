@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
 
 // Thanks to https://www.sitepoint.com/local-authentication-using-passport-node-js/
 // See https://github.com/saintedlama/passport-local-mongoose
@@ -30,7 +30,7 @@ app.use(passport.session());
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
-mongoose.connect('mongodb://localhost/ABWAB',
+mongoose.connect('mongodb://localhost/MAD23',
   { useNewUrlParser: true, useUnifiedTopology: true },
   function(err) {
     if (err) {
@@ -42,7 +42,7 @@ mongoose.connect('mongodb://localhost/ABWAB',
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({});
 
-// In mongo:  db.user.find()
+// In mongo:  db.users.find()
 UserSchema.plugin(passportLocalMongoose, {
   // Set usernameUnique to false to avoid a mongodb index on the username column!
   usernameUnique: false,
@@ -85,6 +85,11 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+
+
+
+
+
 // To load blog posts
 app.get('/api/blog', function(req, res) {
   // Get blog posts
@@ -122,6 +127,7 @@ app.post('/api/blog', function(req, res) {
     date : new Date().toISOString().slice(0,10),
     content : req.body.content
   });
+
   blogPost.save(function(err){
     if (err) {
       console.error(err);
@@ -130,8 +136,8 @@ app.post('/api/blog', function(req, res) {
       console.log(blogPost.url + ' saved.');
       res.send(blogPost.url + ' saved.');
     }
-
   });
+
 
 });
 
